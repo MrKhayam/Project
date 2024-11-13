@@ -1,7 +1,11 @@
 const registerUser = (req, res) => {
-    const { name, age } = req.body;
-    if (name && age) {
-        res.send(`Your name is ${name} and you are ${age} years old.`);
+    const { name, age, dob } = req.body;
+    if (name && age && dob) {
+        res.json({
+            name: name,
+            age: age,
+            dob : dob,
+        })
     }
     else {
         throw new Error("Please fill all the fields.");
