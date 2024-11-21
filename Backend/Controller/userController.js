@@ -33,9 +33,50 @@ const registerUser = asyncHandler(async (req, res) => {
 
 
 
-const loginUser = (req,res) => {
-    res.send("User Logged In");
-}
+const loginUser = asyncHandler(async (req, res) => {
+    
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        res.status(402);
+        throw new Error("Please enter the relevant fields!");
+    }
+
+    const checkUser = await User.findOne({ email });
+
+    if (!checkUser) {
+        res.status(404);
+        throw new Error("Invalid Email!");
+    } else {
+        const matchPass = await bcrypt.compare(password, checkUser.password);
+        if (!matchPass) {
+            res.status(402);
+            throw new Error("Invalid Password!");
+        } else {
+            res.send(checkUser);
+        }
+    }
+
+});
+
+
+
+
+
+
+
+const findMyProfile = asyncHandler( async (req, res) => {
+    const user_id = req.params.id;
+    const foundUser = User.findOne({ _id: user_id });
+
+    if (!foundUser) {
+        res.status(404);
+        throw new Error("User not found!");
+    } else {
+        res.send(foundUser);
+    }
+});
+
 
 
 
