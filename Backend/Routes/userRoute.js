@@ -9,6 +9,6 @@ const router = express.Router();
 
 router.post("/register-user", registerUser);
 router.post("/login-user", loginUser);
-router.get("/my-profile", findMyProfile);
+router.get("/my-profile/:id", findMyProfile);
 
 module.exports = router;
