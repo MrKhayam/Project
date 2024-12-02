@@ -4,6 +4,9 @@ import { IoClose } from "react-icons/io5";
 const Home = () => {
   const [isAccount, setIsAccount] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   return (
     <>
       <div className="w-full flex-col h-screen flex gap-4 items-center justify-center">
@@ -34,6 +37,8 @@ const Home = () => {
             <div className="flex flex-col w-full">
               <label htmlFor="name">Name</label>
               <input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 type="text"
                 id="name"
                 placeholder="Name"
@@ -43,6 +48,8 @@ const Home = () => {
             <div className="flex flex-col w-full">
               <label htmlFor="email">Email</label>
               <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 type="text"
                 id="email"
                 placeholder="Email"
@@ -52,20 +59,23 @@ const Home = () => {
             <div className="flex flex-col w-full">
               <label htmlFor="pass">Password</label>
               <input
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 type="text"
                 id="pass"
                 placeholder="Password"
                 className="p-2 outline-none border rounded-lg border-black"
               />
             </div>
-            <button className="w-full py-3 rounded-full bg-gray-400 text-white">
+            <button
+              className={`w-full py-3 rounded-full ${
+                name && email && password ? "bg-black" : "bg-gray-400"
+              } text-white`}
+            >
               Sign Up
             </button>
           </div>
-              </div>
-              
-
-
+        </div>
 
         <div
           className={`${
@@ -83,6 +93,8 @@ const Home = () => {
             <div className="flex flex-col w-full">
               <label htmlFor="email">Email</label>
               <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 type="text"
                 id="email"
                 placeholder="Email"
@@ -92,13 +104,19 @@ const Home = () => {
             <div className="flex flex-col w-full">
               <label htmlFor="pass">Password</label>
               <input
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 type="text"
                 id="pass"
                 placeholder="Password"
                 className="p-2 outline-none border rounded-lg border-black"
               />
             </div>
-            <button className="w-full py-3 rounded-full bg-gray-400 text-white">
+            <button
+              className={`w-full py-3 rounded-full ${
+                name && email && password ? "bg-black" : "bg-gray-400"
+              } text-white`}
+            >
               Login In
             </button>
           </div>
