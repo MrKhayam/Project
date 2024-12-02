@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
+import { regUser } from "../features/auth/authSlice";
+import { useDispatch } from 'react-redux';
 
 const Home = () => {
   const [isAccount, setIsAccount] = useState(false);
@@ -7,6 +9,22 @@ const Home = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    const data = {
+      name,
+      email,
+      password
+    }
+    dispatch(regUser(data));
+
+    
+  }
+  
+  
+  
   return (
     <>
       <div className="w-full flex-col h-screen flex gap-4 items-center justify-center">
@@ -68,6 +86,7 @@ const Home = () => {
               />
             </div>
             <button
+              onClick={handleClick}
               className={`w-full py-3 rounded-full ${
                 name && email && password ? "bg-black" : "bg-gray-400"
               } text-white`}
