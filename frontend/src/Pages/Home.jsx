@@ -3,6 +3,7 @@ import { IoClose } from "react-icons/io5";
 import { regUser } from "../features/auth/authSlice";
 import { useDispatch, useSelector } from 'react-redux';
 import { BarLoader } from "react-spinners";
+import { toast } from "react-hot-toast"
 
 const Home = () => {
   const [isAccount, setIsAccount] = useState(false);
@@ -11,7 +12,8 @@ const Home = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [disabled, setDisabled] = useState(true);
-
+  const { isLoading, isError, isSuccess, message } = useSelector((state) => state.auth);
+  
 
   useEffect(() => {
     if (name && email && password) {
@@ -36,7 +38,19 @@ const Home = () => {
   }
 
 
-  const { isLoading } = useSelector((state) => state.auth);
+  useEffect(() => {
+    if (isError) {
+      toast.error(message)
+    }
+  }, [isError]);
+  
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("User Signed In");
+    }
+  },[isSuccess])
+
+
   
   
   

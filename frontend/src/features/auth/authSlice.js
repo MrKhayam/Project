@@ -46,6 +46,7 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
+        state.message = "";
         state.isUser = action.payload;
       })
   },
