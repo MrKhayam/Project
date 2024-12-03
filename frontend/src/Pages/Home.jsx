@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { regUser } from "../features/auth/authSlice";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { BarLoader } from "react-spinners";
 
 const Home = () => {
   const [isAccount, setIsAccount] = useState(false);
@@ -9,6 +10,14 @@ const Home = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [disabled, setDisabled] = useState(true);
+
+
+  useEffect(() => {
+    if (name && email && password) {
+      setDisabled(false);
+    }
+  }, [name, email, password])
 
   const dispatch = useDispatch();
 
@@ -19,9 +28,15 @@ const Home = () => {
       password
     }
     dispatch(regUser(data));
+    setName("");
+    setEmail("");
+    setPassword("");
 
     
   }
+
+
+  const { isLoading } = useSelector((state) => state.auth);
   
   
   
@@ -86,12 +101,15 @@ const Home = () => {
               />
             </div>
             <button
+              disabled = {disabled}
               onClick={handleClick}
-              className={`w-full py-3 rounded-full ${
+              className={`w-full flex items-center justify-center h-12 py-3 rounded-full ${
                 name && email && password ? "bg-black" : "bg-gray-400"
               } text-white`}
             >
-              Sign Up
+              {
+                isLoading ? <BarLoader /> : 'Sign Up'
+              }
             </button>
           </div>
         </div>
