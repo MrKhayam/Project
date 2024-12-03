@@ -7,6 +7,7 @@ const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
   const checkEmail = await User.findOne({ email });
   if (checkEmail) {
+    res.status(401);
     throw new Error("Email already registered!");
   }
 
