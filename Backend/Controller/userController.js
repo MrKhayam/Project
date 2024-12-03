@@ -26,6 +26,7 @@ const registerUser = asyncHandler(async (req, res) => {
       console.log(error);
     }
   } else {
+    res.status(401);
     throw new Error("Please fill all the fields.");
   }
 });
