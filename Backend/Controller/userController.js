@@ -1,5 +1,6 @@
 const User = require("../Models/userModel");
 const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
 
 const asyncHandler = require("express-async-handler");
 
@@ -21,7 +22,13 @@ const registerUser = asyncHandler(async (req, res) => {
         password: hashedPass,
       });
 
-      res.send(createdUser);
+      res.json({
+        _id: createdUser.id,
+        name: createdUser.name,
+        email: createdUser.email,
+        password: createdUser.password,
+        token: generateToken(createdUser._id),
+      });
     } catch (error) {
       console.log(error);
     }
@@ -66,5 +73,15 @@ const findMyProfile = asyncHandler(async (req, res) => {
     res.send(foundUser);
   }
 });
+
+
+
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: "1d",
+  });
+}
+
+
 
 module.exports = { registerUser, loginUser, findMyProfile };

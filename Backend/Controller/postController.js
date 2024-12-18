@@ -1,7 +1,7 @@
-// const uploadTweet = (req, res) => {
-//     res.send("Tweet Uploaded");
-// }
+const uploadTweet = (req, res) => {
+    res.send("Tweet Accessed");
+}
 
-// module.exports = {
-//     uploadTweet
-// }
+module.exports = {
+    uploadTweet
+}
