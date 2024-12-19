@@ -3,20 +3,23 @@ const ansyncHandler = require('express-async-handler');
 const User = require("../Models/userModel");
 
 
+
 const authMiddleware = ansyncHandler(async (req, res, next) => {
     let token;
-    if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")){
+    if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
         try {
             token = req.headers.authorization.split(" ")[1];
-            const decode = jwt.verify(token,process.env.JWT_SECRET)
-            req.user = await User.findById(decode.Id);
+            const decode = jwt.verify(token, process.env.JWT_SECRET);
+            req.user = await User.findById(decode._id);
             next();
         } catch (error) {
-            throw new Error("Wrong Token");
+            throw new Error ("Wrong Toje 'O):")
         }
     } else {
-        throw new Error("No Token Found");
+        throw new Error('Token Not Found!');
     }
 })
+
+
 
 module.exports = authMiddleware;

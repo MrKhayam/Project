@@ -57,7 +57,13 @@ const loginUser = asyncHandler(async (req, res) => {
       res.status(402);
       throw new Error("Invalid Password!");
     } else {
-      res.send(checkUser);
+      res.json({
+        _id: createdUser.id,
+        name: createdUser.name,
+        email: createdUser.email,
+        password: createdUser.password,
+        token: generateToken(createdUser._id),
+      });
     }
   }
 });
